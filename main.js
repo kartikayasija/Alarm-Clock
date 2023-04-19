@@ -59,7 +59,7 @@ const refresh = ()=>{
 
   alarms.forEach((alarm,index)=>{
     let input = document.querySelector("#note").value;
-    alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm" onclick="deleteAlarm(${index})">❌</button> <br> ${input} </li>`;
+    alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm" onclick="deleteAlarm(${index})"><i class="fa-solid fa-trash"></i></button> <br> ${input} </li>`;
     console.log(`added ${alarm}`)
   })
   setOptions();
