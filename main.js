@@ -3,27 +3,25 @@ let music = new Audio("Alarm-ringtone.mp3");
 
 const pad=number=>number=number.toString().padStart(2,'0');
 const updateTime = () => {
-  let today = new Date();
-  let date = pad(today.getDate()); // add padStart() to date
-  let month = pad((today.getMonth() + 1)); // add padStart() to month
-  let year = today.getFullYear();
-  let hours = today.getHours(); // add padStart() to hours
-  let minutes = pad(today.getMinutes()); // add padStart() to minutes
-  let seconds = pad(today.getSeconds()); // add padStart() to seconds
-  let amPm = "AM";
+  let today = new Date(),
+  date = pad(today.getDate()), 
+  month = pad((today.getMonth() + 1)), 
+  year = today.getFullYear(),
+  hours = today.getHours(), 
+  minutes = pad(today.getMinutes()), 
+  seconds = pad(today.getSeconds()), 
+  amPm = "AM";
+  if(hours>=12){
+    if(hours>12) hours-=12;
+    amPm="PM";
+  }
   if(hours==0) hours=12;
-  if(hours>12) {
-    hours-=12;
-    amPm="PM";
-  }
-  if(hours==12){
-    amPm="PM";
-  }
   hours=pad(hours);
-  let currentDate = date + "/" + month + "/" + year;
+  
+  let currentDate =`${date}/${month}/${year}`;
   document.querySelector(".date").innerHTML = currentDate;
 
-  let currentTime = hours + ":" + minutes + ":" + seconds + ":"+amPm;
+  let currentTime =`${hours}:${minutes}:${seconds}:${amPm}`;
   document.querySelector(".time").innerHTML = currentTime;
 
   alarms.forEach((alarm)=>{
@@ -35,11 +33,8 @@ const updateTime = () => {
     }
   })
 };
-
 updateTime();
 setInterval(updateTime, 1000);
-
-
 
 const select = document.querySelectorAll("select");
 const setOptions = () => {
@@ -56,6 +51,9 @@ const setOptions = () => {
 };
 setOptions();
 const refresh = ()=>{
+  if(alarms.length===0) document.querySelector(".alarmHeading").innerHTML = "";
+  else document.querySelector(".alarmHeading").innerHTML = "All Alarms";
+  
   let alarmList = document.querySelector(".alarmList");
   alarmList.innerHTML = "";
 
@@ -64,9 +62,9 @@ const refresh = ()=>{
     alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm" onclick="deleteAlarm(${index})">❌</button> <br> ${input} </li>`;
     console.log(`added ${alarm}`)
   })
+  setOptions();
 }
 const addAlarm = () => {
-  document.querySelector(".alarmHeading").innerHTML = "All Alarms";
   let time = `${select[0].value}:${select[1].value}:00:${select[2].value}`;
 
   if(!alarms.includes(time)){
@@ -75,7 +73,6 @@ const addAlarm = () => {
     alert("already added")
   }
   refresh();
-  setOptions();
 };
 const deleteAlarm =(index)=>{
   alarms.splice(index,1);
