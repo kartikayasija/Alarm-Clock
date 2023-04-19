@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Alarm</title>
+</head>
+<body>
+  <section style="display: flex; align-items: center; justify-content: center; height: 96vh;">
+    <div class="container">
+      <p class="date"></p>
+      <p class="time"></p>
+    
+      <button id="stopButton">Stop Alarm</button>
+      <hr class="line">
+      <select id="hours"></select>
+      <select id="minutes"></select>
+      <select id="seconds">
+        <option value="setAMPM" selected hidden>AM/PM</option>
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+      <input type="text" id="note" placeholder="write a note">
+    
+      <button id="setAlarm" type="submit">Set Alarm</button>
+    
+      <h1 class="alarmHeading">Alarms</h1>
+    
+      <div>
+        <ul  class="alarmList">
+    
+        </ul>
+      </div>
+    </div>
+
+  </section>
+  
+  <script src="main.js"></script>
+</body>
+</html>
