@@ -1,6 +1,6 @@
 let alarms = [];
 let music = new Audio("Alarm-ringtone.mp3");
-
+const select = document.querySelectorAll("select");
 
 const updateTime = () => {
   let today = new Date();
@@ -38,7 +38,6 @@ const updateTime = () => {
 updateTime();
 setInterval(updateTime, 1000);
 
-const select = document.querySelectorAll("select");
 const setOptions = () => {
   document.querySelector("#hours").innerHTML= "<option selected hidden>Hour</option>";
   document.querySelector("#minutes").innerHTML= "<option selected hidden>Min</option>";
@@ -52,6 +51,17 @@ const setOptions = () => {
   }
 };
 setOptions();
+
+const refresh = ()=>{
+  let alarmList = document.querySelector(".alarmList");
+  alarmList.innerHTML = "";
+
+  alarms.forEach((alarm,index)=>{
+    let input = document.querySelector("#note").value;
+    alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm" onclick="deleteAlarm(${index})">❌</button> <br> ${input} </li>`;
+    console.log(`added ${alarm}`)
+  })
+}
 const addAlarm = () => {
   document.querySelector(".alarmHeading").innerHTML = "All Alarms";
   let time = `${select[0].value}:${select[1].value}:0:${select[2].value}`;
@@ -61,22 +71,14 @@ const addAlarm = () => {
   }else{
     alert("already added")
   }
-
-  let alarmList = document.querySelector(".alarmList");
-  alarmList.innerHTML = "";
-
-  alarms.forEach((alarm)=>{
-    let input = document.querySelector("#note").value;
-    alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm">❌</button> <br> ${input} </li>`;
-    console.log(`added ${alarm}`)
-  })
-
+  refresh();
   setOptions();
 };
-
-document.querySelector("#setAlarm").addEventListener("click", addAlarm);
-
-document.querySelector("#stopButton").addEventListener("click",()=>{
+const deleteAlarm =(index)=>{
+  alarms.splice(index,1);
+  refresh();
+}
+const stopAlarm=()=>{
   music.pause();
   document.querySelector("#stopButton").style.display="none";
-});
+};
