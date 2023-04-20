@@ -73,19 +73,38 @@ const refresh = ()=>{
 
 const addAlarm = () => {
   document.querySelector("#setAlarm").innerHTML="Add Alarm";
-  let time = `${select[0].value}:${select[1].value}:00:${select[2].value}`;
-  if(!alarms.includes(time)){
-    if(edit==true){
-      alarms.splice(index,1,time);
-    }else{
-      alarms.push(time);
-    }
-  }else{
-    alert("already added")
+  
+  const hours = parseInt(select[0].value);
+  const minutes = parseInt(select[1].value);
+
+  // Validate input values
+  if (isNaN(hours) || isNaN(minutes)) {
+    alert("Please select a valid time");
+    return;
   }
-  edit=false;
+
+  // Convert time to string format
+  let time = `${pad(hours)}:${pad(minutes)}:00:${select[2].value}`;
+  console.log(time);
+
+  // Check if alarm already exists
+  if (alarms.includes(time)) {
+    alert("Alarm already added");
+    return;
+  }
+
+  // Add or update alarm
+  if (edit) {
+    alarms.splice(index, 1, time);
+  } else {
+    alarms.push(time);
+  }
+
+  // Reset edit mode and refresh alarms
+  edit = false;
   refresh();
 };
+
 
 const deleteAlarm =(index)=>{
   alarms.splice(index,1);
