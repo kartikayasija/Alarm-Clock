@@ -50,6 +50,7 @@ const setOptions = () => {
   }
 };
 setOptions();
+
 const refresh = ()=>{
   if(alarms.length===0) document.querySelector(".alarmHeading").innerHTML = "";
   else document.querySelector(".alarmHeading").innerHTML = "All Alarms";
@@ -59,26 +60,47 @@ const refresh = ()=>{
 
   alarms.forEach((alarm,index)=>{
     let input = document.querySelector("#note").value;
-    alarmList.innerHTML += `<li> ${alarm} <button class="deleteAlarm" onclick="deleteAlarm(${index})"><i class="fa-solid fa-trash"></i></button> <br> ${input} </li>`;
-    console.log(`added ${alarm}`)
+    alarmList.innerHTML += `<li> 
+      ${alarm} 
+      <button class="alarm-btn" onclick="deleteAlarm(${index})"><i class="fa-solid fa-trash"></i></button> 
+      <button class="alarm-btn" onclick="editAlarm(${index})"><i class="fa-solid fa-pen"></i></button> 
+      <br> 
+      ${input} 
+    </li>`;
   })
   setOptions();
 }
-const addAlarm = () => {
-  let time = `${select[0].value}:${select[1].value}:00:${select[2].value}`;
 
+const addAlarm = () => {
+  document.querySelector("#setAlarm").innerHTML="Add Alarm";
+  let time = `${select[0].value}:${select[1].value}:00:${select[2].value}`;
   if(!alarms.includes(time)){
-    alarms.push(time);
+    if(edit==true){
+      alarms.splice(index,1,time);
+    }else{
+      alarms.push(time);
+    }
   }else{
     alert("already added")
   }
+  edit=false;
   refresh();
 };
+
 const deleteAlarm =(index)=>{
   alarms.splice(index,1);
   refresh();
 }
+
 const stopAlarm=()=>{
   music.pause();
   document.querySelector("#stopButton").style.display="none";
 };
+
+var edit = false;
+var index;
+const editAlarm=(i)=>{
+  document.querySelector("#setAlarm").innerHTML="Edit";
+  edit=true;
+  index=i;
+}

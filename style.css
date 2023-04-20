@@ -59,13 +59,13 @@ li{
   letter-spacing: 2px;
   left: 10px;
 }
-.deleteAlarm{
+.alarm-btn{
   border: none;
   background: none;
   cursor: pointer;
   transition: 0.3s all ease;
 }
-.deleteAlarm:hover{
+.alarm-btn{
   transform: scale(1.2);
 }
 .line{
