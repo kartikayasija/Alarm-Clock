@@ -1,12 +1,12 @@
 # ALARM CLOCK
 
-### TechStack Use
+## TechStack Use
 
 `HTML`
 `CSS`
 `JavaScript`
 
-### Project Initialization
+## Project Initialization
 
 - Download node package From [nodejs.org](https://nodejs.org/en/download/)
 
@@ -20,4 +20,4 @@
 
 ## Preview
 
-<img width="488" alt="image" src="https://user-images.githubusercontent.com/115306535/233050058-d9dd0d27-495d-4f04-9567-0a2db57f83e5.png">
+<img width="419" alt="image" src="https://user-images.githubusercontent.com/115306535/233085081-ee0d9e8e-690c-4e8c-8f5a-4b658e7c591a.png">
