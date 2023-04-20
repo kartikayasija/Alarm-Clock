@@ -2,6 +2,7 @@ let alarms = [];
 let music = new Audio("Alarm-ringtone.mp3");
 
 const pad=number=>number=number.toString().padStart(2,'0');
+
 const updateTime = () => {
   let today = new Date(),
   date = pad(today.getDate()), 
@@ -40,6 +41,7 @@ const select = document.querySelectorAll("select");
 const setOptions = () => {
   document.querySelector("#hours").innerHTML= "<option selected hidden>Hour</option>";
   document.querySelector("#minutes").innerHTML= "<option selected hidden>Min</option>";
+  document.querySelector("#note").value="";
   for (let i = 12; i > 0; i--) {
     let option = `<option value="${pad(i)}">${pad(i)}</option>`;
     select[0].firstElementChild.insertAdjacentHTML("afterend", option);
@@ -58,14 +60,14 @@ const refresh = ()=>{
   let alarmList = document.querySelector(".alarmList");
   alarmList.innerHTML = "";
 
+  let input = document.querySelector("#note").value;
   alarms.forEach((alarm,index)=>{
-    let input = document.querySelector("#note").value;
     alarmList.innerHTML += `<li> 
-      ${alarm} 
+      ${alarm.t} 
       <button class="alarm-btn" onclick="deleteAlarm(${index})"><i class="fa-solid fa-trash"></i></button> 
       <button class="alarm-btn" onclick="editAlarm(${index})"><i class="fa-solid fa-pen"></i></button> 
       <br> 
-      ${input} 
+      ${alarm.input} 
     </li>`;
   })
   setOptions();
@@ -77,30 +79,28 @@ const addAlarm = () => {
   const hours = parseInt(select[0].value);
   const minutes = parseInt(select[1].value);
 
-  // Validate input values
   if (isNaN(hours) || isNaN(minutes)) {
     alert("Please select a valid time");
     return;
   }
 
-  // Convert time to string format
-  let time = `${pad(hours)}:${pad(minutes)}:00:${select[2].value}`;
+  let time = {
+    t: `${pad(hours)}:${pad(minutes)}:00:${select[2].value}`,
+    input: `${document.querySelector("#note").value}`,
+  }
   console.log(time);
 
-  // Check if alarm already exists
   if (alarms.includes(time)) {
     alert("Alarm already added");
     return;
   }
 
-  // Add or update alarm
   if (edit) {
     alarms.splice(index, 1, time);
   } else {
     alarms.push(time);
   }
 
-  // Reset edit mode and refresh alarms
   edit = false;
   refresh();
 };
