@@ -78,8 +78,9 @@ const addAlarm = () => {
   
   const hours = parseInt(select[0].value);
   const minutes = parseInt(select[1].value);
+  const amPM = select[2].value;
 
-  if (isNaN(hours) || isNaN(minutes)) {
+  if (isNaN(hours) || isNaN(minutes) || amPM=="setAMPM") {
     alert("Please select a valid time");
     return;
   }
