@@ -26,7 +26,7 @@ const updateTime = () => {
   document.querySelector(".time").innerHTML = currentTime;
 
   alarms.forEach((alarm)=>{
-    if(alarm==currentTime){
+    if(alarm.t==currentTime){
       console.log("aaaaa");
       music.load();
       music.play();
@@ -41,6 +41,8 @@ const select = document.querySelectorAll("select");
 const setOptions = () => {
   document.querySelector("#hours").innerHTML= "<option selected hidden>Hour</option>";
   document.querySelector("#minutes").innerHTML= "<option selected hidden>Min</option>";
+  document.querySelector("#amPM").innerHTML="<option selected hidden>AM/PM</option>";
+  
   document.querySelector("#note").value="";
   for (let i = 12; i > 0; i--) {
     let option = `<option value="${pad(i)}">${pad(i)}</option>`;
@@ -49,6 +51,11 @@ const setOptions = () => {
   for (let i = 59; i > 0; i--) {
     let option = `<option value="${pad(i)}">${pad(i)}</option>`;
     select[1].firstElementChild.insertAdjacentHTML("afterend", option);
+  }
+  for(let i=2;i>0;i--){
+    let amPM = i==2?"PM":"AM";
+    let option = `<option value="${amPM}">${amPM}</option>`;
+    select[2].firstElementChild.insertAdjacentHTML("afterend",option)
   }
 };
 setOptions();
@@ -80,7 +87,7 @@ const addAlarm = () => {
   const minutes = parseInt(select[1].value);
   const amPM = select[2].value;
 
-  if (isNaN(hours) || isNaN(minutes) || amPM=="setAMPM") {
+  if (isNaN(hours) || isNaN(minutes) || amPM=="AM/PM") {
     alert("Please select a valid time");
     return;
   }
